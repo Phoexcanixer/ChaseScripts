@@ -9,7 +9,8 @@
         public abstract void Move();
         public void OnPointerClick(PointerEventData eventData)
         {
-            GetComponentInChildren<MeshRenderer>().sharedMaterial.color = (isClick = !isClick) ? Color.red : Color.white;
+            GetComponentInChildren<MeshRenderer>().material.color = (isClick = !isClick) ? Color.red : Color.white;
+            Debug.Log($"Click: {gameObject.name}");
         }
     }
 }

@@ -5,10 +5,8 @@
 
     public class SetPositionBox : MonoBehaviour
     {
-        [Range(1, 2)] public float distancePoint = 1;
-        public Material[] allMat;
         public ESelectStartColor eSelectStartColor;
-
+        public Material[] allMats;
         [ContextMenu("SetPosition")]
         void SetPos()
         {
@@ -17,7 +15,7 @@
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().material = i % 2 == 0 ? _first : _second;
-                transform.GetChild(i).transform.localPosition = new Vector3(i * distancePoint, 0, 0);
+                transform.GetChild(i).transform.localPosition = new Vector3(i, 0, 0);
             }
         }
         void SetMat(ref Material first, ref Material second)
@@ -25,12 +23,12 @@
             switch (eSelectStartColor)
             {
                 case ESelectStartColor.FirstColor:
-                    first = allMat.First();
-                    second = allMat.Last();
+                    first = allMats.First();
+                    second = allMats.Last();
                     break;
                 default:
-                    first = allMat.Last();
-                    second = allMat.First();
+                    first = allMats.Last();
+                    second = allMats.First();
                     break;
             }
         }
