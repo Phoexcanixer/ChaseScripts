@@ -13,5 +13,6 @@
 
     #region Enum
     public enum ESelectStartColor { FirstColor, SecondColor }
+    public enum EPieces { Pawn, Rook, Knight, Bishop, Queen, King }
     #endregion
 }

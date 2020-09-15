@@ -6,15 +6,27 @@
     public class BoxManage : MonoBehaviour, IPointerClickHandler
     {
         public Vector2Int slot;
+        public BasePieces basePieces;
+
+        MeshRenderer _meshRender;
+        MeshCollider _meshCollider;
+        Material _thisMat;
+        void Awake()
+        {
+            _meshRender = GetComponent<MeshRenderer>();
+            _meshCollider = GetComponent<MeshCollider>();
+            _thisMat = _meshRender.material;
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             Debug.Log($"{name}: {slot}");
-            if (transform.childCount > 0)
-            {
-                GetComponentInChildren<BasePieces>()?.OnPointerClick(eventData);
-            }
-            else
-                GetComponent<MeshRenderer>().material.color = Color.red;
+            //if (transform.childCount > 0)
+            //{
+            //    GetComponentInChildren<BasePieces>()?.OnPointerClick(eventData);
+            //}
         }
+        public void ShowPathMove(bool isShow) => _meshCollider.enabled = isShow;
+        public void ShowGuide(bool isShow) => _meshRender.material = isShow ? BoardManage.instance.guideMat : _thisMat;
     }
 }

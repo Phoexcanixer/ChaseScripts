@@ -1,6 +1,6 @@
 ﻿namespace Chase.Pieces
 {
-    public class ChipManage : BasePieces
+    public class PawnManage : BasePieces
     {
         public override void Move()
         {
