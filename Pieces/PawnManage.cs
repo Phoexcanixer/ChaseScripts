@@ -2,9 +2,6 @@
 {
     public class PawnManage : BasePieces
     {
-        public override void Move()
-        {
-            
-        }
+
     }
 }

@@ -17,14 +17,10 @@
             _meshCollider = GetComponent<MeshCollider>();
             _thisMat = _meshRender.material;
         }
-
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log($"{name}: {slot}");
-            //if (transform.childCount > 0)
-            //{
-            //    GetComponentInChildren<BasePieces>()?.OnPointerClick(eventData);
-            //}
+            BoardManage.instance.presentTargetBox = this;
+            BoardManage.instance.presentPieces.Move();
         }
         public void ShowPathMove(bool isShow) => _meshCollider.enabled = isShow;
         public void ShowGuide(bool isShow) => _meshRender.material = isShow ? BoardManage.instance.guideMat : _thisMat;

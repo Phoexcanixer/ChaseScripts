@@ -2,10 +2,17 @@
 {
     using UnityEngine;
     using Common.Singleton;
+    using Chase.Pieces;
+
     public class BoardManage : ExSingleton<BoardManage>
     {
-        public DetailBox[] detailBoxes;
+
         public Material guideMat;
+        public DetailBox[] detailBoxes;
+        #region Property
+        public BasePieces presentPieces { get; set; }
+        public BoxManage presentTargetBox { get; set; }
+        #endregion
         #region SubControll
         public SubBoardMovePieces subBoardMovePieces = new SubBoardMovePieces();
         #endregion

@@ -10,6 +10,17 @@
         Vector2Int _slot;
         List<Vector2Int> _allSlot;
         ESelectStartColor _side;
+        public void ClearBorad()
+        {
+            for (int i = 0; i < BoardManage.instance.detailBoxes.Length; i++)
+            {
+                for (int j = 0; j < BoardManage.instance.detailBoxes[i].boxManages.Length; j++)
+                {
+                    BoardManage.instance.detailBoxes[i].boxManages[j].ShowPathMove(false);
+                    BoardManage.instance.detailBoxes[i].boxManages[j].ShowGuide(false);
+                }
+            }
+        }
         public void CheckMovePieces(EPieces ePieces, ESelectStartColor eSelectSide, Vector2Int slot)
         {
             _allSlot = new List<Vector2Int>();
@@ -84,8 +95,6 @@
                 {
                     if (item == slot)
                     {
-
-                        Debug.Log($"item: {item}");
                         BoardManage.instance.detailBoxes[item.x].boxManages[item.y].ShowPathMove(true);
                         BoardManage.instance.detailBoxes[item.x].boxManages[item.y].ShowGuide(true);
                         _tempSlot = item;
@@ -94,5 +103,6 @@
                 _allSlot.Remove(_tempSlot);
             }
         }
+
     }
 }
