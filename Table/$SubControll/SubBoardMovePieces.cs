@@ -3,7 +3,6 @@
     using Common.ArrayList;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEditorInternal;
     using UnityEngine;
     public class SubBoardMovePieces
     {
@@ -56,7 +55,8 @@
                 // Left
                 if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages.CheckOutOfRange(_slot.y - 1))
                 {
-                    if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y - 1].transform.childCount > 0 && !BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y - 1].basePieces.eSelectSide.Equals(_side))
+                    var _piece = BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y - 1].GetPieces();
+                    if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y - 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))
                     {
                         _allSlot.Add(new Vector2Int(_slot.x + 1, _slot.y - 1));
                     }
@@ -64,7 +64,8 @@
                 // Right
                 if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages.CheckOutOfRange(_slot.y + 1))
                 {
-                    if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y + 1].transform.childCount > 0 && !BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y + 1].basePieces.eSelectSide.Equals(_side))
+                    var _piece = BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y + 1].GetPieces();
+                    if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y + 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))
                     {
                         _allSlot.Add(new Vector2Int(_slot.x + 1, _slot.y + 1));
                     }

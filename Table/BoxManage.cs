@@ -6,7 +6,6 @@
     public class BoxManage : MonoBehaviour, IPointerClickHandler
     {
         public Vector2Int slot;
-        public BasePieces basePieces;
 
         MeshRenderer _meshRender;
         MeshCollider _meshCollider;
@@ -24,5 +23,13 @@
         }
         public void ShowPathMove(bool isShow) => _meshCollider.enabled = isShow;
         public void ShowGuide(bool isShow) => _meshRender.material = isShow ? BoardManage.instance.guideMat : _thisMat;
+        public BasePieces GetPieces() => GetComponentInChildren<BasePieces>();
+        public void ClearChild()
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
     }
 }
