@@ -8,16 +8,18 @@ using System.Collections;
 public class BoardManage : ExSingleton<BoardManage>
 {
     public ESelectGame eSelectGame;
-    public Material guideMat;
+    public ESelectStartColor eTurnPlayer;
+    public Material guideMat, firstPlayerMat, secondPlayerMat, selectionFirstMat, selectionSecondMat;
     public DetailBox[] detailBoxes; // All Box
 
     #region Property
     public BasePieces presentPieces { get; set; } // PresentSelectPiece
     public BoxManage presentTargetBox { get; set; } // PresentSelectSlot
+
+    public ChaseManage chaseManage { get; private set; }
     #endregion
 
     #region Chase
-    public ChaseManage chaseManage;
     public SubBoardMovePieces subBoardMovePieces = new SubBoardMovePieces();
     #endregion
 
@@ -37,9 +39,18 @@ public class BoardManage : ExSingleton<BoardManage>
     {
         switch (eSelectGame)
         {
-            case ESelectGame.Chase: chaseManage.ExecuteStart(); break;
+            case ESelectGame.Chase: chaseManage = gameObject.AddComponent<ChaseManage>().ExecuteStart(); break;
             default:
                 break;
         }
+    }
+    public void SwichTurn()
+    {
+        subBoardMovePieces.ClearBorad();
+        presentPieces = null;
+        presentTargetBox = null;
+
+        eTurnPlayer = ~(eTurnPlayer - 1);
+
     }
 }

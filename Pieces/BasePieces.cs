@@ -17,21 +17,23 @@
             transform.localPosition = Vector2.zero;
 
             DefaulValue();
-            BoardManage.instance.subBoardMovePieces.ClearBorad();
-            BoardManage.instance.presentPieces = null;
-            BoardManage.instance.presentTargetBox = null;
+            BoardManage.instance.SwichTurn();
         }
         public void OnPointerClick(PointerEventData eventData)
         {
-            meshRdr.material.color = (isClick = !isClick) ? Color.blue : Color.white;
-            BoardManage.instance.subBoardMovePieces.CheckMovePieces(ePieces, eSelectSide, GetComponentInParent<BoxManage>().slot);
-            BoardManage.instance.presentPieces?.DefaulValue();
-            BoardManage.instance.presentPieces = this;
+            if (!isClick && BoardManage.instance.eTurnPlayer.Equals(eSelectSide))
+            {
+                isClick = !isClick;
+                meshRdr.material = eSelectSide.Equals(ESelectStartColor.FirstColor) ? BoardManage.instance.selectionFirstMat : BoardManage.instance.selectionSecondMat;
+                BoardManage.instance.subBoardMovePieces.CheckMovePieces(ePieces, eSelectSide, GetComponentInParent<BoxManage>().slot);
+                BoardManage.instance.presentPieces?.DefaulValue();
+                BoardManage.instance.presentPieces = this;
+            }
         }
         public void DefaulValue()
         {
             isClick = false;
-            meshRdr.material.color = Color.white;
+            meshRdr.material = eSelectSide.Equals(ESelectStartColor.FirstColor) ? BoardManage.instance.firstPlayerMat : BoardManage.instance.secondPlayerMat;
         }
     }
 }

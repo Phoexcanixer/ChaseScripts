@@ -45,34 +45,36 @@
         }
         void Pawn()
         {
-            if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slot.x + 1))
+            int _slotPlayer = _side.Equals(ESelectStartColor.FirstColor) ? _slot.x + 1 : _slot.x - 1;
+            if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotPlayer))
             {
                 // Up
-                if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y].transform.childCount <= 0)
+                if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y].transform.childCount <= 0)
                 {
-                    _allSlot.Add(new Vector2Int(_slot.x + 1, _slot.y));
+                    _allSlot.Add(new Vector2Int(_slotPlayer, _slot.y));
                 }
                 // Left
-                if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages.CheckOutOfRange(_slot.y - 1))
+                if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages.CheckOutOfRange(_slot.y - 1))
                 {
-                    var _piece = BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y - 1].GetPieces();
-                    if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y - 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))
+                    var _piece = BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y - 1].GetPieces();
+                    if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y - 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))
                     {
-                        _allSlot.Add(new Vector2Int(_slot.x + 1, _slot.y - 1));
+                        _allSlot.Add(new Vector2Int(_slotPlayer, _slot.y - 1));
                     }
                 }
                 // Right
-                if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages.CheckOutOfRange(_slot.y + 1))
+                if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages.CheckOutOfRange(_slot.y + 1))
                 {
-                    var _piece = BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y + 1].GetPieces();
-                    if (BoardManage.instance.detailBoxes[_slot.x + 1].boxManages[_slot.y + 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))
+                    var _piece = BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y + 1].GetPieces();
+                    if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y + 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))
                     {
-                        _allSlot.Add(new Vector2Int(_slot.x + 1, _slot.y + 1));
+                        _allSlot.Add(new Vector2Int(_slotPlayer, _slot.y + 1));
                     }
                 }
 
                 CheckInteractBoard();
             }
+
         }
         void CheckInteractBoard()
         {
