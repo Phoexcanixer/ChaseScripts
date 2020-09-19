@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using Common.Singleton;
-using Chase;
-using Chase.Table;
+﻿using Chase;
 using Chase.Pieces;
-using System.Collections;
+using Chase.Table;
+using Common.Singleton;
+using UnityEngine;
 
 public class BoardManage : ExSingleton<BoardManage>
 {

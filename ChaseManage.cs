@@ -13,23 +13,42 @@
         {
             BasePieces[] _allPieces = Resources.LoadAll<BasePieces>("Pieces");
             PawnInstanc(_allPieces.Where(item => item.ePieces.Equals(EPieces.Pawn)).First());
+            RookInstanc(_allPieces.Where(item => item.ePieces.Equals(EPieces.Rook)).First());
             return this;
         }
         void PawnInstanc(BasePieces pawn)
         {
-            for (int i = 0; i < BoardManage.instance.detailBoxes[1].boxManages.Length; i++) // PawnLineFirstPlayer
-            {
-                BasePieces _pieces = Instantiate(pawn, BoardManage.instance.detailBoxes[1].boxManages[i].transform);
-                _pieces.meshRdr.material = BoardManage.instance.firstPlayerMat;
-                allPiecesFirstPlayers.Add(_pieces);
-            }
+            PawnSpawn(ESelectStartColor.FirstColor, 1, BoardManage.instance.firstPlayerMat); // PawnLineFirstPlayer
+            PawnSpawn(ESelectStartColor.SecondColor, 6, BoardManage.instance.secondPlayerMat); // PawnLineSecondPlayer
 
-            for (int i = 0; i < BoardManage.instance.detailBoxes[6].boxManages.Length; i++) // PawnLineSecondPlayer
+            void PawnSpawn(ESelectStartColor eSelectStartColor, int slot, Material mat)
             {
-                BasePieces _pieces = Instantiate(pawn, BoardManage.instance.detailBoxes[6].boxManages[i].transform);
-                _pieces.eSelectSide = ESelectStartColor.SecondColor;
-                _pieces.meshRdr.material = BoardManage.instance.secondPlayerMat;
-                allPiecesSecondPlayers.Add(_pieces);
+                for (int i = 0; i < BoardManage.instance.detailBoxes[slot].boxManages.Length; i++)
+                {
+                    BasePieces _pieces = Instantiate(pawn, BoardManage.instance.detailBoxes[slot].boxManages[i].transform);
+                    _pieces.eSelectSide = eSelectStartColor;
+                    _pieces.meshRdr.material = mat;
+                    allPiecesFirstPlayers.Add(_pieces);
+                }
+            }
+        }
+        void RookInstanc(BasePieces rook)
+        {
+            RookSpawn(ESelectStartColor.FirstColor, 0, BoardManage.instance.firstPlayerMat); // RookLineFirstPlayer
+            RookSpawn(ESelectStartColor.SecondColor, 7, BoardManage.instance.secondPlayerMat); // RookLineSecondPlayer
+
+            void RookSpawn(ESelectStartColor eSelectStartColor, int slot, Material mat)
+            {
+                Spawn(BoardManage.instance.detailBoxes[slot].boxManages.First().transform);
+                Spawn(BoardManage.instance.detailBoxes[slot].boxManages.Last().transform);
+
+                void Spawn(Transform parentPiece)
+                {
+                    BasePieces _pieces = Instantiate(rook, parentPiece);
+                    _pieces.eSelectSide = eSelectStartColor;
+                    _pieces.meshRdr.material = mat;
+                    allPiecesFirstPlayers.Add(_pieces);
+                }
             }
         }
     }
