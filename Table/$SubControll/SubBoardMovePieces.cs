@@ -31,8 +31,7 @@
             {
                 case EPieces.Pawn: PawnMove(); break;
                 case EPieces.Rook: RookMove(); break;
-                case EPieces.Knight:
-                    break;
+                case EPieces.Knight: KnightMove(); break;
                 case EPieces.Bishop:
                     break;
                 case EPieces.Queen:
@@ -181,6 +180,92 @@
                         _allSlot.Add(new Vector2Int(_slot.x, _slotRight));
 
                     break;
+                }
+            }
+            CheckInteractBoard();
+        }
+        void KnightMove()
+        {
+            // UP
+            int _slotX = _slot.x + 2;
+            if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotX))
+            {
+                int _slotY = _slot.y - 1;
+                // Left
+                if (BoardManage.instance.detailBoxes[_slotX].boxManages.CheckOutOfRange(_slotY))
+                {
+                    CheckSide(new Vector2Int(_slotX, _slotY));
+                }
+                _slotY = _slot.y + 1;
+                // Right
+                if (BoardManage.instance.detailBoxes[_slotX].boxManages.CheckOutOfRange(_slotY))
+                {
+                    CheckSide(new Vector2Int(_slotX, _slotY));
+                }
+            }
+            // Down
+            _slotX = _slot.x - 2;
+            if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotX))
+            {
+                int _slotY = _slot.y - 1;
+                // Left
+                if (BoardManage.instance.detailBoxes[_slotX].boxManages.CheckOutOfRange(_slotY))
+                {
+                    CheckSide(new Vector2Int(_slotX, _slotY));
+                }
+                _slotY = _slot.y + 1;
+                // Right
+                if (BoardManage.instance.detailBoxes[_slotX].boxManages.CheckOutOfRange(_slotY))
+                {
+                    CheckSide(new Vector2Int(_slotX, _slotY));
+                }
+            }
+            // Right
+            int _slotSideY = _slot.y + 2;
+            if (BoardManage.instance.detailBoxes[_slot.x].boxManages.CheckOutOfRange(_slotSideY))
+            {
+                int _slotSideX = _slot.x - 1;
+                // Left
+                if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotSideX))
+                {
+                    CheckSide(new Vector2Int(_slotSideX, _slotSideY));
+                }
+                _slotSideX = _slot.x + 1;
+                // Right
+                if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotSideX))
+                {
+                    CheckSide(new Vector2Int(_slotSideX, _slotSideY));
+                }
+            }
+            // Left
+            _slotSideY = _slot.y - 2;
+            if (BoardManage.instance.detailBoxes[_slot.x].boxManages.CheckOutOfRange(_slotSideY))
+            {
+                int _slotSideX = _slot.x - 1;
+                // Left
+                if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotSideX))
+                {
+                    CheckSide(new Vector2Int(_slotSideX, _slotSideY));
+                }
+                _slotSideX = _slot.x + 1;
+                // Right
+                if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotSideX))
+                {
+                    CheckSide(new Vector2Int(_slotSideX, _slotSideY));
+                }
+            }
+
+            void CheckSide(Vector2Int slot)
+            {
+                BasePieces _piece = BoardManage.instance.detailBoxes[slot.x].boxManages[slot.y].GetPieces();
+                if (!_piece)
+                {
+                    _allSlot.Add(new Vector2Int(slot.x, slot.y));
+                }
+                else
+                {
+                    if (!_piece.eSelectSide.Equals(_side))
+                        _allSlot.Add(new Vector2Int(slot.x, slot.y));
                 }
             }
             CheckInteractBoard();
