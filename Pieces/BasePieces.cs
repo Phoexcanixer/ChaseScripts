@@ -8,10 +8,11 @@
         public EPieces ePieces;
         public ESelectStartColor eSelectSide;
         [HideInInspector] public MeshRenderer meshRdr;
-        public bool isClick;
+        public bool isClick, isFirstMove;
         void Awake() => meshRdr = GetComponentInChildren<MeshRenderer>();
         public virtual void Move()
         {
+            isFirstMove = false;
             BoardManage.instance.presentTargetBox.ClearChild();
             transform.SetParent(BoardManage.instance.presentTargetBox.transform);
             transform.localPosition = Vector2.zero;
