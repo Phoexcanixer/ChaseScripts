@@ -1,12 +1,12 @@
-﻿namespace Chase.Table
+﻿namespace Chess.Table
 {
-    using Chase.Pieces;
+    using Chess.Pieces;
     using UnityEngine;
     using UnityEngine.EventSystems;
     public class BoxManage : MonoBehaviour, IPointerClickHandler
     {
         public Vector2Int slot;
-
+        public bool isPawnEnchant;
         MeshRenderer _meshRender;
         MeshCollider _meshCollider;
         Material _thisMat;
@@ -30,6 +30,7 @@
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
+            BoardManage.instance.chessManage.ClearNullList();
         }
     }
 }

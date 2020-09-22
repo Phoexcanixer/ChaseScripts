@@ -1,26 +1,33 @@
-﻿namespace Chase
+﻿namespace Chess
 {
-    using Chase.Pieces;
-    using System.Collections;
+    using Chess.Pieces;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    public class ChaseManage : MonoBehaviour
+    public class ChessManage : MonoBehaviour
     {
         public List<BasePieces> allPiecesFirstPlayers = new List<BasePieces>();
         public List<BasePieces> allPiecesSecondPlayers = new List<BasePieces>();
-        public ChaseManage ExecuteStart()
+
+        public Action CallBackCheckKingCheckmate { get; set; }
+        public ChessManage ExecuteStart()
         {
             BasePieces[] _allPieces = Resources.LoadAll<BasePieces>("Pieces");
 
             PawnInstanc(_allPieces.Where(item => item.ePieces.Equals(EPieces.Pawn)).First());
-            //RookInstanc(_allPieces.Where(item => item.ePieces.Equals(EPieces.Rook)).First());
-            //KnightInstanc(_allPieces.Where(item => item.ePieces.Equals(EPieces.Knight)).First());
-            //BishopInstance(_allPieces.Where(item => item.ePieces.Equals(EPieces.Bishop)).First());
-            //QueenInstance(_allPieces.Where(item => item.ePieces.Equals(EPieces.Queen)).First());
-            //KingInstance(_allPieces.Where(item => item.ePieces.Equals(EPieces.King)).First());
+            RookInstanc(_allPieces.Where(item => item.ePieces.Equals(EPieces.Rook)).First());
+            KnightInstanc(_allPieces.Where(item => item.ePieces.Equals(EPieces.Knight)).First());
+            BishopInstance(_allPieces.Where(item => item.ePieces.Equals(EPieces.Bishop)).First());
+            QueenInstance(_allPieces.Where(item => item.ePieces.Equals(EPieces.Queen)).First());
+            KingInstance(_allPieces.Where(item => item.ePieces.Equals(EPieces.King)).First());
 
             return this;
+        }
+        public void ClearNullList()
+        {
+            allPiecesFirstPlayers = allPiecesFirstPlayers.Where(item => item).ToList();
+            allPiecesSecondPlayers = allPiecesSecondPlayers.Where(item => item).ToList();
         }
         void PawnInstanc(BasePieces pawn)
         {

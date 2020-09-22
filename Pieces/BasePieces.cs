@@ -1,6 +1,6 @@
-﻿namespace Chase.Pieces
+﻿namespace Chess.Pieces
 {
-    using Chase.Table;
+    using Chess.Table;
     using UnityEngine;
     using UnityEngine.EventSystems;
     public class BasePieces : MonoBehaviour, IPointerClickHandler
@@ -10,6 +10,11 @@
         [HideInInspector] public MeshRenderer meshRdr;
         public bool isClick, isFirstMove;
         void Awake() => meshRdr = GetComponentInChildren<MeshRenderer>();
+        void Start()
+        {
+            if (ePieces.Equals(EPieces.King))
+                gameObject.AddComponent<KingCheck>();
+        }
         public virtual void Move()
         {
             isFirstMove = false;
@@ -17,8 +22,14 @@
             transform.SetParent(BoardManage.instance.presentTargetBox.transform);
             transform.localPosition = Vector2.zero;
 
-            DefaulValue();
-            BoardManage.instance.SwichTurn();
+            if (BoardManage.instance.presentTargetBox.isPawnEnchant && ePieces.Equals(EPieces.Pawn))
+                EnchantPawn.CallBackSelectEnchant?.Invoke(true);
+            else
+            {
+                DefaulValue();
+                BoardManage.instance.SwichTurn();
+            }
+            // BoardManage.instance.chessManage.CallBackCheckKingCheckmate?.Invoke();
         }
         public void OnPointerClick(PointerEventData eventData)
         {

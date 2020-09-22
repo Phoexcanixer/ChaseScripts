@@ -1,6 +1,6 @@
-﻿namespace Chase.Table
+﻿namespace Chess.Table
 {
-    using Chase.Pieces;
+    using Chess.Pieces;
     using Common.ArrayList;
     using System.Collections.Generic;
     using System.Linq;
@@ -87,9 +87,9 @@
         {
             PawnMoveSlot(_side.Equals(ESelectStartColor.FirstColor) ? _slot.x + 1 : _slot.x - 1);
             if (BoardManage.instance.detailBoxes[_slot.x].boxManages[_slot.y].GetPieces().isFirstMove)
-                PawnMoveSlot(_side.Equals(ESelectStartColor.FirstColor) ? _slot.x + 2 : _slot.x - 2);
+                PawnMoveSlot(_side.Equals(ESelectStartColor.FirstColor) ? _slot.x + 2 : _slot.x - 2, false);
 
-            void PawnMoveSlot(int slotX)
+            void PawnMoveSlot(int slotX, bool isEat = true)
             {
                 int _slotPlayer = slotX;
                 if (BoardManage.instance.detailBoxes.CheckOutOfRange(_slotPlayer))
@@ -100,7 +100,7 @@
                         _allSlot.Add(new Vector2Int(_slotPlayer, _slot.y));
                     }
                     // Left
-                    if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages.CheckOutOfRange(_slot.y - 1))
+                    if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages.CheckOutOfRange(_slot.y - 1) && isEat)
                     {
                         var _piece = BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y - 1].GetPieces();
                         if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y - 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))
@@ -109,7 +109,7 @@
                         }
                     }
                     // Right
-                    if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages.CheckOutOfRange(_slot.y + 1))
+                    if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages.CheckOutOfRange(_slot.y + 1) && isEat)
                     {
                         var _piece = BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y + 1].GetPieces();
                         if (BoardManage.instance.detailBoxes[_slotPlayer].boxManages[_slot.y + 1].transform.childCount > 0 && _piece != null && !_piece.eSelectSide.Equals(_side))

@@ -1,4 +1,4 @@
-﻿using Chase.Table;
+﻿using Chess.Table;
 using System;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿namespace Chase.Table
+﻿namespace Chess.Table
 {
     using System.Linq;
     using UnityEngine;

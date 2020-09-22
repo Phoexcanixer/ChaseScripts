@@ -1,6 +1,6 @@
-﻿using Chase;
-using Chase.Pieces;
-using Chase.Table;
+﻿using Chess;
+using Chess.Pieces;
+using Chess.Table;
 using Common.Singleton;
 using UnityEngine;
 
@@ -15,10 +15,10 @@ public class BoardManage : ExSingleton<BoardManage>
     public BasePieces presentPieces { get; set; } // PresentSelectPiece
     public BoxManage presentTargetBox { get; set; } // PresentSelectSlot
 
-    public ChaseManage chaseManage { get; private set; }
+    public ChessManage chessManage { get; private set; }
     #endregion
 
-    #region Chase
+    #region Chess
     public SubBoardMovePieces subBoardMovePieces = new SubBoardMovePieces();
     #endregion
 
@@ -38,9 +38,8 @@ public class BoardManage : ExSingleton<BoardManage>
     {
         switch (eSelectGame)
         {
-            case ESelectGame.Chase: chaseManage = gameObject.AddComponent<ChaseManage>().ExecuteStart(); break;
-            default:
-                break;
+            case ESelectGame.Chase: chessManage = gameObject.AddComponent<ChessManage>().ExecuteStart(); break;
+            default: break;
         }
     }
     public void SwichTurn()
@@ -50,6 +49,5 @@ public class BoardManage : ExSingleton<BoardManage>
         presentTargetBox = null;
 
         eTurnPlayer = ~(eTurnPlayer - 1);
-
     }
 }
